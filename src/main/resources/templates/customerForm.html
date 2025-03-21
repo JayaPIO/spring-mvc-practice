@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+        .error{ color:red}
+    </style>
+</head>
+<body>
+<form th:action="@{/customer}" th:object="${customer}" method="post">
+    First Name (*): <input type="text" th:field="*{firstName}">
+    <!--    Add error message   -->
+    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
+    <br/><br/>
+    Last Name: <input type="text" th:field="*{lastName}">
+
+    <br/><br/>
+    No of orders: <input type="text" th:field="*{orders}">
+    <!--    Add error message   -->
+    <span th:if="${#fields.hasErrors('orders')}" th:errors="*{orders}" class="error"></span>
+    <br/><br/>
+    Postal Code: <input type="text" th:field="*{postalCode}">
+    <!--    Add error message   -->
+    <span th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}" class="error"></span>
+    <br><br>
+
+    Offer Code: <input type="text" th:field="*{code}">
+    <!--    Add error message   -->
+    <span th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="error"></span>
+    <br><br>
+    <input type="submit">
+</form>
+</body>
+</html>

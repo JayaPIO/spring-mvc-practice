@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Event</title>
+</head>
+<body>
+<h1>Event List</h1>
+<form action="/event" method="post">
+
+    Enter event title: <input type="text" name="title"><br>
+    Enter event location: <input type="text" name="location"><br>
+    Enter event date: <input type="text" name="date" placeholder="YYYY-MM-DD"
+                             pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$"><br>
+
+    <input type="submit">
+
+</form>
+
+</body>
+</html>
