@@ -1,9 +1,11 @@
 package com.jaya.springMVC_learning.services.impl;
 
+import com.jaya.springMVC_learning.exception.CustomException;
 import com.jaya.springMVC_learning.models.Event;
 import com.jaya.springMVC_learning.repositories.EventRepository;
 import com.jaya.springMVC_learning.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -31,8 +33,7 @@ public class EventServiceImpl implements EventService {
             model.addAttribute("event", getEvent);
             return "eventDetails.html";
         } else {
-            model.addAttribute("notFound", "Event not fount with event Id: " + id);
-            return "errorPage.html";
+            throw new CustomException(HttpStatus.NOT_FOUND,"Event Not Found With Given"+id);
         }
     }
 }

@@ -12,17 +12,22 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-    // add an initBinder to remove leading and tailing white spaces
+    /**
+     * add an initBinder to remove leading and tailing white spaces
+     * @param dataBinder
+     */
     @InitBinder
     public void initBinder(WebDataBinder dataBinder){
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class , stringTrimmerEditor);
     }
+
     @GetMapping
     public String showForm(Model model){
         model.addAttribute("customer",new Customer());
         return "customerForm.html";
     }
+
     @PostMapping
     public String customerDetails(@Valid @ModelAttribute ("customer") Customer theCustomer, BindingResult bindingResult){
         if (bindingResult.hasErrors()){

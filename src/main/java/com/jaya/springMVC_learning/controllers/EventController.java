@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class EventController {
 
     @Autowired
-    EventService eventService;
+    private EventService eventService;
 
     @PostMapping
     public String addEvent(Event event, Model model) {
@@ -25,5 +25,6 @@ public class EventController {
     public String getEventById(@RequestParam("id") int id, Model model) {
         return eventService.eventById(id, model);
     }
+
 
 }
