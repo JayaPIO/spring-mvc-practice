@@ -5,9 +5,7 @@ import com.jaya.springMVC_learning.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/event")
@@ -26,5 +24,19 @@ public class EventController {
         return eventService.eventById(id, model);
     }
 
+    @GetMapping("/events")
+    public String getEvents(Model model) {
+        return eventService.allEventsTable(model);
+    }
+
+    @GetMapping("/updateForm")
+    public String updateForm(@RequestParam("id") int id, Model model) {
+        return eventService.showUpdateForm(id, model);
+    }
+
+    @PostMapping("/update")
+    public String updateEvent(@ModelAttribute("event") Event theEvent) {
+        return eventService.updateEventToDb(theEvent);
+    }
 
 }

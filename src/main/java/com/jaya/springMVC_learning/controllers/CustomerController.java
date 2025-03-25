@@ -14,26 +14,26 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     /**
      * add an initBinder to remove leading and tailing white spaces
+     *
      * @param dataBinder
      */
     @InitBinder
-    public void initBinder(WebDataBinder dataBinder){
+    public void initBinder(WebDataBinder dataBinder) {
         StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
-        dataBinder.registerCustomEditor(String.class , stringTrimmerEditor);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
     @GetMapping
-    public String showForm(Model model){
-        model.addAttribute("customer",new Customer());
+    public String showForm(Model model) {
+        model.addAttribute("customer", new Customer());
         return "customerForm.html";
     }
 
     @PostMapping
-    public String customerDetails(@Valid @ModelAttribute ("customer") Customer theCustomer, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
+    public String customerDetails(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "customerForm.html";
-        }
-        else{
+        } else {
             return "customerConfirmation.html";
         }
     }
