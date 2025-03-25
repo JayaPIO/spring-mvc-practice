@@ -39,4 +39,9 @@ public class EventController {
         return eventService.updateEventToDb(theEvent);
     }
 
+    @GetMapping("/delete")
+    public String deleteEvent(@RequestParam("id") int id, Model model) {
+        return eventService.deleteEventById(id, model);
+    }
+
 }

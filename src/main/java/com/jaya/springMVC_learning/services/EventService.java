@@ -14,4 +14,7 @@ public interface EventService {
     String showUpdateForm(int eventId, Model model);
 
     String updateEventToDb(Event theEvent);
+
+    String deleteEventById(int id, Model model);
 }
+

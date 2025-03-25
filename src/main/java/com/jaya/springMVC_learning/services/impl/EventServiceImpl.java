@@ -93,5 +93,20 @@ public class EventServiceImpl implements EventService {
         return ViewConstant.EVENT_DETAILS;
     }
 
+    /**
+     * method for deleting an event
+     *
+     * @param id
+     * @param model
+     * @return redirect to events list
+     */
+    @Override
+    public String deleteEventById(int id, Model model) {
+
+        eventRepository.deleteById(id);
+        //redirect to all list
+        return "redirect:/event/events";
+    }
+
 
 }
