@@ -8,4 +8,13 @@ public interface EventService {
     String addNewEvent(Event event, Model model);
 
     String eventById(int id, Model model);
+
+    String allEventsTable(Model model);
+
+    String showUpdateForm(int eventId, Model model);
+
+    String updateEventToDb(Event theEvent);
+
+    String deleteEventById(int id, Model model);
 }
+
