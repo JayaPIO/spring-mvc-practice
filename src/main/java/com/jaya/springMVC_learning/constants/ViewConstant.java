@@ -6,5 +6,9 @@ public interface ViewConstant {
     String EVENT_DETAILS = "eventDetails.html";
     String EVENT_UPDATE_PAGE = "eventUpdate.html";
     String EVENT_LIST_PAGE = "eventsList.html";
-    String EVENT_TABLE = "eventTable.html";
+    String HOME_PAGE = "home";
+    String LOGIN_PAGE = "loginPage.html";
+    String ADMIN_VIEW_PAGE = "adminViewPage.html";
+    String ACCESS_DENIED_PAGE = "access-denied.html";
 }
+
