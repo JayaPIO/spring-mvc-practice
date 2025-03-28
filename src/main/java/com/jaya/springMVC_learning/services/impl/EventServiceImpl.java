@@ -7,9 +7,10 @@ import com.jaya.springMVC_learning.repositories.EventRepository;
 import com.jaya.springMVC_learning.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ public class EventServiceImpl implements EventService {
      * @return String shows added event details in a table
      */
     @Override
+    @Secured("ROLE_MANAGER")
     public String addNewEvent(Event event, Model model) {
 
         model.addAttribute("event", event);
@@ -34,13 +36,20 @@ public class EventServiceImpl implements EventService {
         return ViewConstant.EVENT_DETAILS;
     }
 
+    /**
+     * finding an event by id
+     *
+     * @param id
+     * @param model
+     * @return
+     */
     @Override
     public String eventById(int id, Model model) {
         Optional<Event> eventOptional = eventRepository.findById(id);
         if (eventOptional.isPresent()) {
             Event getEvent = eventOptional.get();
             model.addAttribute("event", getEvent);
-            return "eventDetails.html";
+            return ViewConstant.EVENT_DETAILS;
         } else {
             throw new CustomException(HttpStatus.NOT_FOUND, "Event Not Found With Given" + id);
         }
@@ -67,6 +76,7 @@ public class EventServiceImpl implements EventService {
      * @return String view_page or error
      */
     @Override
+    @PreAuthorize("hasRole(T(com.jaya.springMVC_learning.constants.Roles).ADMIN)")
     public String showUpdateForm(int eventId, Model model) {
         // get the event from the db
         Optional<Event> eventOptional = eventRepository.findById(eventId);
@@ -101,12 +111,11 @@ public class EventServiceImpl implements EventService {
      * @return redirect to events list
      */
     @Override
+    @PreAuthorize("hasRole(T(com.jaya.springMVC_learning.constants.Roles).MANAGER) or hasRole(T(com.jaya.springMVC_learning.constants.Roles).ADMIN)")
     public String deleteEventById(int id, Model model) {
-
         eventRepository.deleteById(id);
         //redirect to all list
-        return "redirect:/event/events";
+        return ViewConstant.REDIRECT_TO_EVENTS;
     }
-
 
 }

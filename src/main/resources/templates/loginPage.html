@@ -34,28 +34,28 @@
 </head>
 <body>
 <div class="container login-container">
-<h3>Login form</h3>
+    <h3>Login form</h3>
     <br>
-<form action="#" th:action="@{/authenticateUser}" method="POST">
-    <div class="form-group container">
-        <!--  add logout message by checking for logout parameter     -->
-        <div class="box">
-        <div th:if="${param.logout}" class="logout-msg"> You have been logged out!</div>
-        </div>
-        <!--    check for login error    -->
-        <div th:if="${param.error}" class="error">
-            <i>Invalid Username or Password</i>
-        </div>
+    <form action="#" th:action="@{/authenticateUser}" method="POST">
+        <div class="form-group container">
+            <!--  add logout message by checking for logout parameter     -->
+            <div class="box">
+                <div th:if="${param.logout}" class="logout-msg"> You have been logged out!</div>
+            </div>
+            <!--    check for login error    -->
+            <div th:if="${param.error}" class="error">
+                <i>Invalid Username or Password</i>
+            </div>
 
-        <p>
-            User Name : <input type="text" name="username" class="form-control"/>
-        </p>
-        <p>
-            Password : <input type="text" name="password" class="form-control"/>
-        </p>
-        <input type="submit" value="Login" class="btn btn-primary">
-    </div>
-</form>
+            <p>
+                User Name : <input type="text" name="username" class="form-control"/>
+            </p>
+            <p>
+                Password : <input type="text" name="password" class="form-control"/>
+            </p>
+            <input type="submit" value="Login" class="btn btn-primary">
+        </div>
+    </form>
 </div>
 </body>
 </html>

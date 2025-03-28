@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -9,25 +9,21 @@
 Home page
 
 <hr>
-<!-- Display Username-->
-User: <span sec:authentication="principal.username"></span>
-<br>
-<!-- Display roles-->
-Role(s): <span sec:authentication="principal.authorities"></span>
-<hr>
-
-<hr>
 <!-- link for manager -->
-<p>
-    <a th:href="@{/manager}">manager</a>
-    (only for manager)
-</p>
+<div sec:authorize="hasRole(T(com.jaya.springMVC_learning.constants.Roles).MANAGER.name())">
+    <p>
+        <a th:href="@{/manager}">manager</a>
+        (only for manager)
+    </p>
+</div>
 <hr>
 <!-- link for admin -->
-<p>
-    <a th:href="@{/admin}">admin</a>
-    (only for admins)
-</p>
+<div sec:authorize="hasRole(T(com.jaya.springMVC_learning.constants.Roles).ADMIN.name())">
+    <p>
+        <a th:href="@{/admin}">admin</a>
+        (only for admins)
+    </p>
+</div>
 <form action="#" th:action="@{/logout}" method="POST">
     <input type="submit" value="logout">
 </form>

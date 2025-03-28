@@ -1,45 +1,35 @@
 package com.jaya.springMVC_learning.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static com.jaya.springMVC_learning.constants.Roles.*;
+
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
-    @Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
-        UserDetails deep = User.builder()
-                .username("Deep")
-                .password("{noop}a1234")
-                .roles("USER")
-                .build();
-
-        UserDetails rose = User.builder()
-                .username("Rose")
-                .password("{noop}a1234")
-                .roles("USER","ADMIN")
-                .build();
-
-        UserDetails monica = User.builder()
-                .username("monica")
-                .password("{noop}a1234")
-                .roles("USER","MANAGER")
-                .build();
-
-        return new InMemoryUserDetailsManager(deep, rose, monica);
-    }
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(configurer ->
+        http
+                .authorizeHttpRequests(configurer ->
                         configurer
-                                .requestMatchers("/").hasRole("USER")
-                                .requestMatchers("/manager/**").hasRole("MANAGER")
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/register").permitAll()
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/member/saveUser").permitAll()
+                                .requestMatchers("/").hasRole(USER.name())
+                                .requestMatchers("/manager/**").hasRole(MANAGER.name())
+                                .requestMatchers("/admin/**").hasRole(ADMIN.name())
                                 .anyRequest().authenticated()
                 )
                 //login support
@@ -59,5 +49,13 @@ public class SecurityConfig {
                                 .accessDeniedPage("/access-denied")
                 );
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setUserDetailsService(userDetailsService);
+        return provider;
     }
 }

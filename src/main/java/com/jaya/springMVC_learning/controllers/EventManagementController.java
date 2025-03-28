@@ -19,6 +19,11 @@ public class EventManagementController {
         return ViewConstant.HOME_PAGE;
     }
 
+    @GetMapping("/register")
+    public String showSignUpPage() {
+        return ViewConstant.REGISTRATION_FORM_FOR_EVENT;
+    }
+
     @GetMapping("/login")
     public String showLoginPage() {
         return ViewConstant.LOGIN_PAGE;

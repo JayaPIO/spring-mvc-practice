@@ -10,5 +10,7 @@ public interface ViewConstant {
     String LOGIN_PAGE = "loginPage.html";
     String ADMIN_VIEW_PAGE = "adminViewPage.html";
     String ACCESS_DENIED_PAGE = "access-denied.html";
+    String REGISTRATION_FORM_FOR_EVENT = "registrationFormEvent.html";
+    String REDIRECT_TO_EVENTS = "redirect:/event/events";
 }
 
