@@ -19,12 +19,12 @@ public class MemberController {
      * adding user into db
      * @param memberDto
      * @param model
-     * @return
+     * @return view page
      */
     @PostMapping("/saveUser")
     public String addUser(MemberDTO memberDto, Model model) {
-        System.out.println("in add user");
-        memberService.addUser(memberDto, model);
+        model.addAttribute("member",memberDto);
+        memberService.addUser(memberDto);
         return ViewConstant.HOME_PAGE;
     }
 }

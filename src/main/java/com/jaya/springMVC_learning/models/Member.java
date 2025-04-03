@@ -1,17 +1,16 @@
 package com.jaya.springMVC_learning.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "members")
 public class Member {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int memberId;
     @Column(name = "user_name")
     private String username;
-    @Column(name = "passcode")
+    @Column(name = "password")
     private String password;
     @Column(name = "role")
     private String role;
@@ -19,8 +18,8 @@ public class Member {
     public Member() {
     }
 
-    public Member(Integer id, String username, String password, String role) {
-
+    public Member(int memberId, String username, String password, String role) {
+        this.memberId=memberId;
         this.username = username;
         this.password = password;
         this.role = role;
@@ -30,6 +29,14 @@ public class Member {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
     }
 
     public String getUsername() {
